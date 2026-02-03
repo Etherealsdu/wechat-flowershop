@@ -1,0 +1,29 @@
+{
+  "name": "wechat-flower-shop",
+  "version": "1.0.0",
+  "description": "Production-level WeChat mini program for an online flower shop",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test framework installed\" && exit 1",
+    "build": "echo \"Build script would be implemented based on WeChat dev tools\"",
+    "dev": "echo \"Development mode would be handled by WeChat DevTools\"",
+    "lint": "echo \"Linting would be configured for wxss/wxml/js files\"",
+    "format": "echo \"Formatting would be configured for project files\""
+  },
+  "keywords": [
+    "wechat",
+    "mini-program",
+    "ecommerce",
+    "flower-shop",
+    "retail"
+  ],
+  "author": "OpenClaw AI Assistant",
+  "license": "MIT",
+  "devDependencies": {
+    "@typescript-eslint/parser": "^5.0.0",
+    "eslint": "^8.0.0",
+    "eslint-plugin-wxml": "^0.1.0",
+    "prettier": "^2.0.0"
+  },
+  "dependencies": {}
+}

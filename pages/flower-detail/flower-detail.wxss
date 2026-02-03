@@ -1,0 +1,108 @@
+/* pages/flower-detail/flower-detail.wxss */
+.product-image-swiper {
+  height: 350px;
+}
+
+.product-detail-image {
+  width: 100%;
+  height: 350px;
+  object-fit: contain;
+}
+
+.product-info-section {
+  background: white;
+}
+
+.product-title {
+  font-size: 24px;
+  font-weight: bold;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.current-price {
+  font-size: 28px;
+  font-weight: bold;
+  color: #ff6b6b;
+}
+
+.original-price {
+  text-decoration: line-through;
+  color: #999;
+  font-size: 16px;
+}
+
+.discount-badge {
+  background: #ff4757;
+  color: white;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.rating-value {
+  font-weight: bold;
+}
+
+.rating-count {
+  color: #999;
+  font-size: 14px;
+}
+
+.delivery-info, .stock-info {
+  padding: 8px 12px;
+  background: #f9f9f9;
+  border-radius: 8px;
+}
+
+.bottom-action-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: white;
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  border-top: 1px solid #eee;
+}
+
+.quantity-selector {
+  flex: 1;
+  margin-right: 15px;
+}
+
+.quantity-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #f0f0f0;
+  border: none;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.quantity-value {
+  min-width: 40px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.add-to-cart-btn {
+  flex: 2;
+  margin: 0;
+}
+
+.feature-item {
+  padding: 5px 0;
+}
+
+.feature-icon {
+  color: #2ed573;
+  font-weight: bold;
+}

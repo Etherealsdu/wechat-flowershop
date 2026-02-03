@@ -1,0 +1,79 @@
+<!-- pages/orders/orders.wxml -->
+<view class="container">
+  <!-- Header -->
+  <view class="header">
+    <text class="header-title">My Orders</text>
+  </view>
+  
+  <!-- Order Tabs -->
+  <view class="tabs flex">
+    <view 
+      class="tab-item text-center {{activeTab === 'all' ? 'active' : ''}}" 
+      bindtap="switchTab" 
+      data-tab="all"
+    >
+      All Orders
+    </view>
+    <view 
+      class="tab-item text-center {{activeTab === 'pending' ? 'active' : ''}}" 
+      bindtap="switchTab" 
+      data-tab="pending"
+    >
+      Pending
+    </view>
+    <view 
+      class="tab-item text-center {{activeTab === 'completed' ? 'active' : ''}}" 
+      bindtap="switchTab" 
+      data-tab="completed"
+    >
+      Completed
+    </view>
+  </view>
+  
+  <!-- Orders List -->
+  <view class="orders-container">
+    <block wx:if="{{filteredOrders.length > 0}}">
+      <block wx:for="{{filteredOrders}}" wx:key="id">
+        <view class="card order-card mb-3">
+          <view class="p-3">
+            <view class="order-header flex justify-between align-center mb-3">
+              <text class="order-id">Order #{{item.id.substring(0, 8)}}</text>
+              <view class="order-status {{item.status}}-status">
+                <text class="{{item.status}}-text">{{formatStatus(item.status)}}</text>
+              </view>
+            </view>
+            
+            <view class="order-items">
+              <block wx:for="{{item.items}}" wx:key="id" wx:if="{{item.items.length > 0}}">
+                <view class="order-item flex align-center mb-2" wx:if="{{index < 3}}">
+                  <image src="{{item.image}}" class="order-item-image" mode="aspectFill"></image>
+                  <view class="order-item-info ml-2">
+                    <text class="order-item-name">{{item.name}}</text>
+                    <text class="order-item-quantity">Qty: {{item.quantity}}</text>
+                  </view>
+                </view>
+                <view class="text-muted text-center" wx:if="{{index === 2 && item.items.length > 3}}">
+                  ...and {{item.items.length - 3}} more items
+                </view>
+              </block>
+            </view>
+            
+            <view class="divider my-3"></view>
+            
+            <view class="order-footer flex justify-between align-center">
+              <text class="order-total">Total: ${{toFixed(item.total, 2)}}</text>
+              <button class="btn btn-secondary btn-small" bindtap="viewOrderDetails" data-order="{{item}}">View Details</button>
+            </view>
+          </view>
+        </view>
+      </block>
+    </block>
+    
+    <!-- Empty State -->
+    <view class="empty-orders text-center p-4" wx:if="{{filteredOrders.length === 0}}">
+      <image src="/images/empty-orders.png" class="empty-orders-icon"></image>
+      <text class="empty-orders-text">No orders yet</text>
+      <button class="btn btn-primary mt-3" bindtap="goToShop">Start Shopping</button>
+    </view>
+  </view>
+</view>

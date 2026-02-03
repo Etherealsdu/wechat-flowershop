@@ -1,0 +1,7 @@
+{
+  "desc": "Flower Shop Mini Program Sitemap",
+  "rules": [{
+    "action": "allow",
+    "page": "*"
+  }]
+}

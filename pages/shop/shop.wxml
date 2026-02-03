@@ -1,0 +1,117 @@
+<!-- pages/shop/shop.wxml -->
+<view class="container">
+  <!-- Header -->
+  <view class="header">
+    <text class="header-title">Our Flower Collection</text>
+  </view>
+  
+  <!-- Search Bar -->
+  <view class="search-container p-3">
+    <view class="search-bar flex align-center">
+      <input 
+        type="text" 
+        placeholder="Search flowers..." 
+        value="{{searchQuery}}" 
+        bindinput="onSearchInput"
+        class="search-input flex-grow"
+      />
+      <button class="btn btn-primary ml-2" bindtap="performSearch">Search</button>
+    </view>
+  </view>
+  
+  <!-- Category Filter -->
+  <view class="filter-container p-3">
+    <scroll-view scroll-x="{{true}}" class="category-scroll">
+      <view class="flex">
+        <view 
+          class="category-tag {{selectedCategory === '' ? 'active' : ''}} mr-2" 
+          bindtap="selectCategory" 
+          data-category=""
+        >
+          All
+        </view>
+        <view 
+          class="category-tag {{selectedCategory === 'roses' ? 'active' : ''}} mr-2" 
+          bindtap="selectCategory" 
+          data-category="roses"
+        >
+          Roses
+        </view>
+        <view 
+          class="category-tag {{selectedCategory === 'sunflowers' ? 'active' : ''}} mr-2" 
+          bindtap="selectCategory" 
+          data-category="sunflowers"
+        >
+          Sunflowers
+        </view>
+        <view 
+          class="category-tag {{selectedCategory === 'lilies' ? 'active' : ''}} mr-2" 
+          bindtap="selectCategory" 
+          data-category="lilies"
+        >
+          Lilies
+        </view>
+        <view 
+          class="category-tag {{selectedCategory === 'arrangements' ? 'active' : ''}} mr-2" 
+          bindtap="selectCategory" 
+          data-category="arrangements"
+        >
+          Arrangements
+        </view>
+        <view 
+          class="category-tag {{selectedCategory === 'plants' ? 'active' : ''}} mr-2" 
+          bindtap="selectCategory" 
+          data-category="plants"
+        >
+          Plants
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+  
+  <!-- Sort Options -->
+  <view class="sort-container p-3">
+    <picker bindchange="onSortChange" value="{{sortIndex}}" range="{{sortOptions}}">
+      <view class="sort-picker flex align-center">
+        <text>Sort by: {{sortOptions[sortIndex]}}</text>
+        <text class="sort-arrow">▼</text>
+      </view>
+    </picker>
+  </view>
+  
+  <!-- Products Grid -->
+  <view class="products-container p-3">
+    <view class="grid grid-cols-2">
+      <block wx:for="{{displayedFlowers}}" wx:key="id">
+        <view class="product-card" bindtap="viewFlowerDetail" data-flower="{{item}}">
+          <image src="{{item.image}}" class="product-image" mode="aspectFill"></image>
+          <view class="product-info">
+            <text class="product-title">{{item.name}}</text>
+            <text class="product-description">{{item.description}}</text>
+            <view class="product-price">
+              <text class="current-price">${{item.price}}</text>
+              <text class="original-price" wx:if="{{item.originalPrice && item.originalPrice > item.price}}">${{item.originalPrice}}</text>
+            </view>
+            <view class="rating">
+              <text class="star">★</text>
+              <text>{{item.rating}}</text>
+            </view>
+          </view>
+          <view class="discount-badge" wx:if="{{item.originalPrice && item.originalPrice > item.price}}">
+            {{Math.round((1 - item.price/item.originalPrice)*100)}}% OFF
+          </view>
+        </view>
+      </block>
+    </view>
+    
+    <view class="no-results text-center" wx:if="{{displayedFlowers.length === 0}}">
+      <text>No flowers found matching your criteria.</text>
+    </view>
+  </view>
+  
+  <!-- Floating Cart Button -->
+  <view class="floating-cart" bindtap="goToCart">
+    <view class="cart-badge" wx:if="{{cartItemCount > 0}}">{{cartItemCount}}</view>
+    <image src="/images/cart-white.png" class="cart-icon"></image>
+  </view>
+</view>

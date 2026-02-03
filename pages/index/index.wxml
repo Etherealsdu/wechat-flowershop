@@ -1,0 +1,116 @@
+<!-- pages/index/index.wxml -->
+<view class="container">
+  <!-- Header -->
+  <view class="header">
+    <text class="header-title">Welcome to Flower Shop</text>
+  </view>
+  
+  <!-- Hero Banner -->
+  <swiper class="banner-swiper" indicator-dots="{{true}}" autoplay="{{true}}" interval="3000" duration="500" circular="{{true}}">
+    <swiper-item>
+      <image src="/images/banner1.jpg" class="banner-image" mode="aspectFill"></image>
+    </swiper-item>
+    <swiper-item>
+      <image src="/images/banner2.jpg" class="banner-image" mode="aspectFill"></image>
+    </swiper-item>
+    <swiper-item>
+      <image src="/images/banner3.jpg" class="banner-image" mode="aspectFill"></image>
+    </swiper-item>
+  </swiper>
+  
+  <!-- Quick Actions -->
+  <view class="quick-actions p-3">
+    <view class="flex justify-between mb-3">
+      <view class="action-btn text-center" bindtap="goToShop">
+        <image src="/images/roses-icon.png" class="action-icon"></image>
+        <text class="action-text">Roses</text>
+      </view>
+      <view class="action-btn text-center" bindtap="goToShop">
+        <image src="/images/sunflowers-icon.png" class="action-icon"></image>
+        <text class="action-text">Sunflowers</text>
+      </view>
+      <view class="action-btn text-center" bindtap="goToShop">
+        <image src="/images/arrangements-icon.png" class="action-icon"></image>
+        <text class="action-text">Arrangements</text>
+      </view>
+      <view class="action-btn text-center" bindtap="goToShop">
+        <image src="/images/plants-icon.png" class="action-icon"></image>
+        <text class="action-text">Plants</text>
+      </view>
+    </view>
+  </view>
+  
+  <!-- Featured Flowers -->
+  <view class="section p-3">
+    <view class="section-header mb-3">
+      <text class="section-title">Featured Flowers</text>
+      <text class="section-more" bindtap="goToShop">See All ></text>
+    </view>
+    <scroll-view scroll-x="{{true}}" class="horizontal-scroll">
+      <view class="flex">
+        <block wx:for="{{featuredFlowers}}" wx:key="id">
+          <view class="product-card mr-3" bindtap="viewFlowerDetail" data-flower="{{item}}">
+            <image src="{{item.image}}" class="product-image" mode="aspectFill"></image>
+            <view class="product-info">
+              <text class="product-title">{{item.name}}</text>
+              <view class="product-price">
+                <text class="current-price">${{item.price}}</text>
+                <text class="original-price" wx:if="{{item.originalPrice}}">${{item.originalPrice}}</text>
+              </view>
+              <view class="rating">
+                <text class="star">★</text>
+                <text>{{item.rating}}</text>
+              </view>
+            </view>
+          </view>
+        </block>
+      </view>
+    </scroll-view>
+  </view>
+  
+  <!-- Categories -->
+  <view class="section p-3">
+    <view class="section-header mb-3">
+      <text class="section-title">Categories</text>
+    </view>
+    <view class="grid grid-cols-2">
+      <view class="category-card" bindtap="goToCategory" data-category="roses">
+        <image src="/images/roses-category.jpg" class="category-image"></image>
+        <text class="category-name">Roses</text>
+      </view>
+      <view class="category-card" bindtap="goToCategory" data-category="sunflowers">
+        <image src="/images/sunflowers-category.jpg" class="category-image"></image>
+        <text class="category-name">Sunflowers</text>
+      </view>
+      <view class="category-card" bindtap="goToCategory" data-category="lilies">
+        <image src="/images/lilies-category.jpg" class="category-image"></image>
+        <text class="category-name">Lilies</text>
+      </view>
+      <view class="category-card" bindtap="goToCategory" data-category="orchids">
+        <image src="/images/orchids-category.jpg" class="category-image"></image>
+        <text class="category-name">Orchids</text>
+      </view>
+    </view>
+  </view>
+  
+  <!-- Special Offers -->
+  <view class="section p-3">
+    <view class="section-header mb-3">
+      <text class="section-title">Special Offers</text>
+    </view>
+    <view class="card offer-card">
+      <view class="offer-content flex align-center">
+        <image src="/images/discount-icon.png" class="offer-icon"></image>
+        <view class="offer-text">
+          <text class="offer-title">Free Delivery on Orders Over $50</text>
+          <text class="offer-subtitle">Limited time offer</text>
+        </view>
+      </view>
+    </view>
+  </view>
+  
+  <!-- Footer -->
+  <view class="footer">
+    <text>© 2025 Flower Shop. All rights reserved.</text>
+  </view>
+</view>

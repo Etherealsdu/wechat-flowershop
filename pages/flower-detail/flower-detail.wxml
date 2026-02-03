@@ -1,0 +1,98 @@
+<!-- pages/flower-detail/flower-detail.wxml -->
+<view class="container">
+  <!-- Header -->
+  <view class="header">
+    <text class="header-back" bindtap="goBack">←</text>
+    <text class="header-title">Product Details</text>
+  </view>
+  
+  <!-- Product Image Carousel -->
+  <swiper class="product-image-swiper" indicator-dots="{{true}}" autoplay="{{false}}" circular="{{true}}">
+    <swiper-item>
+      <image src="{{flower.image}}" class="product-detail-image" mode="aspectFit"></image>
+    </swiper-item>
+  </swiper>
+  
+  <!-- Product Info -->
+  <view class="product-info-section p-3">
+    <view class="product-title-section">
+      <text class="product-title">{{flower.name}}</text>
+      <view class="product-price-section flex align-center">
+        <text class="current-price">${{flower.price}}</text>
+        <text class="original-price ml-2" wx:if="{{flower.originalPrice && flower.originalPrice > flower.price}}">${{flower.originalPrice}}</text>
+        <text class="discount-badge ml-2" wx:if="{{flower.originalPrice && flower.originalPrice > flower.price}}">
+          {{Math.round((1 - flower.price/flower.originalPrice)*100)}}% OFF
+        </text>
+      </view>
+    </view>
+    
+    <view class="rating-section mt-2">
+      <view class="rating flex align-center">
+        <text class="star">★</text>
+        <text class="rating-value ml-1">{{flower.rating}}</text>
+        <text class="rating-count ml-2">({{flower.reviewCount || 10}} reviews)</text>
+      </view>
+    </view>
+    
+    <view class="delivery-info mt-3 flex align-center">
+      <text class="delivery-icon">🚚</text>
+      <text class="delivery-text ml-2">Delivery: {{flower.deliveryTime}}</text>
+    </view>
+    
+    <view class="stock-info mt-2 flex align-center">
+      <text class="stock-icon">📦</text>
+      <text class="stock-text ml-2" wx:if="{{flower.stock > 10}}">In Stock ({{flower.stock}} available)</text>
+      <text class="stock-text ml-2 text-warning" wx:elif="{{flower.stock > 0}}">Low Stock (Only {{flower.stock}} left)</text>
+      <text class="stock-text ml-2 text-danger" wx:else>Out of Stock</text>
+    </view>
+  </view>
+  
+  <!-- Description -->
+  <view class="card mb-3">
+    <view class="p-3">
+      <text class="section-title mb-2">Description</text>
+      <text class="product-description">{{flower.description}}</text>
+    </view>
+  </view>
+  
+  <!-- Features -->
+  <view class="card mb-3">
+    <view class="p-3">
+      <text class="section-title mb-2">Features</text>
+      <view class="features-list">
+        <view class="feature-item flex align-center mb-2" wx:if="{{flower.features}}">
+          <text class="feature-icon">✓</text>
+          <text class="feature-text ml-2">{{flower.features}}</text>
+        </view>
+        <view class="feature-item flex align-center mb-2">
+          <text class="feature-icon">✓</text>
+          <text class="feature-text ml-2">Fresh flowers guaranteed</text>
+        </view>
+        <view class="feature-item flex align-center mb-2">
+          <text class="feature-icon">✓</text>
+          <text class="feature-text ml-2">Hand-delivered nationwide</text>
+        </view>
+        <view class="feature-item flex align-center">
+          <text class="feature-icon">✓</text>
+          <text class="feature-text ml-2">100% satisfaction guarantee</text>
+        </view>
+      </view>
+    </view>
+  </view>
+  
+  <!-- Quantity Selector and Add to Cart -->
+  <view class="bottom-action-bar">
+    <view class="quantity-selector flex align-center">
+      <button class="quantity-btn" bindtap="decreaseQuantity">-</button>
+      <text class="quantity-value">{{quantity}}</text>
+      <button class="quantity-btn" bindtap="increaseQuantity">+</button>
+    </view>
+    <button 
+      class="btn btn-primary add-to-cart-btn" 
+      bindtap="addToCart" 
+      disabled="{{flower.stock <= 0}}"
+    >
+      {{flower.stock <= 0 ? 'Out of Stock' : 'Add to Cart'}}
+    </button>
+  </view>
+</view>

@@ -1,0 +1,65 @@
+<!-- pages/profile/profile.wxml -->
+<view class="container">
+  <!-- Header -->
+  <view class="header">
+    <text class="header-title">My Profile</text>
+  </view>
+  
+  <!-- User Info -->
+  <view class="card mb-3">
+    <view class="p-3 flex align-center">
+      <image src="{{userInfo.avatarUrl || '/images/default-avatar.png'}}" class="avatar"></image>
+      <view class="ml-3">
+        <text class="user-name">{{userInfo.nickName || 'Guest User'}}</text>
+        <text class="user-email text-muted" wx:if="{{userInfo.email}}">{{userInfo.email}}</text>
+        <button class="btn btn-secondary btn-small mt-1" bindtap="login" wx:if="{{!userInfo.nickName}}">Login</button>
+      </view>
+    </view>
+  </view>
+  
+  <!-- Profile Options -->
+  <view class="card mb-3">
+    <view class="option-item flex justify-between align-center" bindtap="editProfile">
+      <text>Edit Profile</text>
+      <text>></text>
+    </view>
+    <view class="divider"></view>
+    <view class="option-item flex justify-between align-center" bindtap="manageAddress">
+      <text>Delivery Address</text>
+      <text>></text>
+    </view>
+    <view class="divider"></view>
+    <view class="option-item flex justify-between align-center" bindtap="viewOrders">
+      <text>My Orders</text>
+      <text>></text>
+    </view>
+    <view class="divider"></view>
+    <view class="option-item flex justify-between align-center" bindtap="viewWishlist">
+      <text>Wishlist</text>
+      <text>></text>
+    </view>
+  </view>
+  
+  <!-- Account Settings -->
+  <view class="card mb-3">
+    <view class="option-item flex justify-between align-center" bindtap="settings">
+      <text>Settings</text>
+      <text>></text>
+    </view>
+    <view class="divider"></view>
+    <view class="option-item flex justify-between align-center" bindtap="about">
+      <text>About Us</text>
+      <text>></text>
+    </view>
+    <view class="divider"></view>
+    <view class="option-item flex justify-between align-center" bindtap="contact">
+      <text>Contact Support</text>
+      <text>></text>
+    </view>
+  </view>
+  
+  <!-- Logout -->
+  <view class="p-3" wx:if="{{userInfo.nickName}}">
+    <button class="btn btn-secondary btn-large" bindtap="logout">Logout</button>
+  </view>
+</view>

@@ -1,0 +1,74 @@
+<!-- pages/cart/cart.wxml -->
+<view class="container">
+  <!-- Header -->
+  <view class="header">
+    <text class="header-title">Shopping Cart</text>
+  </view>
+  
+  <!-- Cart Items -->
+  <view class="cart-items">
+    <block wx:if="{{cartItems.length > 0}}">
+      <block wx:for="{{cartItems}}" wx:key="id">
+        <view class="card cart-item mb-2">
+          <view class="flex align-start">
+            <image src="{{item.image}}" class="cart-item-image" mode="aspectFill"></image>
+            <view class="cart-item-info flex-grow">
+              <text class="cart-item-name">{{item.name}}</text>
+              <text class="cart-item-price">${{item.price}}</text>
+              
+              <!-- Quantity Controls -->
+              <view class="quantity-controls flex align-center mt-2">
+                <button class="quantity-btn" bindtap="decreaseQuantity" data-id="{{item.id}}">-</button>
+                <text class="quantity-value">{{item.quantity}}</text>
+                <button class="quantity-btn" bindtap="increaseQuantity" data-id="{{item.id}}">+</button>
+              </view>
+            </view>
+            <view class="cart-item-total">
+              <text>${{toFixed(item.price * item.quantity, 2)}}</text>
+              <button class="remove-btn" bindtap="removeFromCart" data-id="{{item.id}}">Remove</button>
+            </view>
+          </view>
+        </view>
+      </block>
+      
+      <!-- Cart Summary -->
+      <view class="card cart-summary p-3 mb-3">
+        <view class="summary-row justify-between">
+          <text>Subtotal:</text>
+          <text>${{toFixed(subtotal, 2)}}</text>
+        </view>
+        <view class="summary-row justify-between">
+          <text>Delivery Fee:</text>
+          <text>${{deliveryFee}}</text>
+        </view>
+        <view class="divider"></view>
+        <view class="summary-row justify-between bold">
+          <text>Total:</text>
+          <text class="total-amount">${{toFixed(total, 2)}}</text>
+        </view>
+        
+        <!-- Free Delivery Message -->
+        <view class="free-delivery-message mt-2" wx:if="{{deliveryFee === 0}}">
+          <text>🎉 Congratulations! You qualify for FREE delivery!</text>
+        </view>
+        <view class="delivery-message mt-2" wx:else>
+          <text>Add ${{toFixed(freeDeliveryThreshold - subtotal, 2)}} more for FREE delivery</text>
+        </view>
+      </view>
+      
+      <!-- Checkout Button -->
+      <view class="p-3">
+        <button class="btn btn-primary btn-large" bindtap="proceedToCheckout">Proceed to Checkout</button>
+      </view>
+    </block>
+    
+    <!-- Empty Cart -->
+    <block wx:else>
+      <view class="empty-cart text-center p-4">
+        <image src="/images/empty-cart.png" class="empty-cart-icon"></image>
+        <text class="empty-cart-text">Your cart is empty</text>
+        <button class="btn btn-primary mt-3" bindtap="goToShop">Browse Flowers</button>
+      </view>
+    </block>
+  </view>
+</view>

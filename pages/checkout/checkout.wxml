@@ -1,0 +1,106 @@
+<!-- pages/checkout/checkout.wxml -->
+<view class="container">
+  <!-- Header -->
+  <view class="header">
+    <text class="header-back" bindtap="goBack">←</text>
+    <text class="header-title">Checkout</text>
+  </view>
+  
+  <!-- Delivery Address -->
+  <view class="card mb-3">
+    <view class="p-3">
+      <view class="section-header mb-3">
+        <text class="section-title">Delivery Address</text>
+        <text class="section-more" bindtap="editAddress">Edit</text>
+      </view>
+      
+      <view wx:if="{{address}}">
+        <text class="address-line">{{address.name}}</text>
+        <text class="address-line">{{address.phone}}</text>
+        <text class="address-line">{{address.street}}</text>
+        <text class="address-line">{{address.city}}, {{address.state}} {{address.zipcode}}</text>
+        <text class="address-line">{{address.country}}</text>
+      </view>
+      <view wx:else>
+        <text>No address added yet</text>
+        <button class="btn btn-primary mt-2" bindtap="addAddress">Add Address</button>
+      </view>
+    </view>
+  </view>
+  
+  <!-- Delivery Time -->
+  <view class="card mb-3">
+    <view class="p-3">
+      <view class="section-header mb-3">
+        <text class="section-title">Delivery Time</text>
+      </view>
+      
+      <radio-group bindchange="onDeliveryTimeChange">
+        <label class="delivery-option flex align-center" wx:for="{{deliveryOptions}}" wx:key="value">
+          <radio value="{{item.value}}" checked="{{item.value === selectedDeliveryTime}}"/>
+          <view class="ml-2">
+            <text class="delivery-label">{{item.label}}</text>
+            <text class="delivery-time text-muted" wx:if="{{item.time}}">{{item.time}}</text>
+          </view>
+        </label>
+      </radio-group>
+    </view>
+  </view>
+  
+  <!-- Special Instructions -->
+  <view class="card mb-3">
+    <view class="p-3">
+      <view class="section-header mb-3">
+        <text class="section-title">Special Instructions</text>
+      </view>
+      <textarea 
+        class="instructions-input" 
+        placeholder="Any special delivery instructions?" 
+        value="{{specialInstructions}}"
+        bindinput="onInstructionsInput"
+        maxlength="200"
+      ></textarea>
+    </view>
+  </view>
+  
+  <!-- Order Summary -->
+  <view class="card mb-3">
+    <view class="p-3">
+      <view class="section-header mb-3">
+        <text class="section-title">Order Summary</text>
+      </view>
+      
+      <block wx:for="{{cartItems}}" wx:key="id">
+        <view class="summary-item flex justify-between mb-2">
+          <text>{{item.name}} x {{item.quantity}}</text>
+          <text>${{toFixed(item.price * item.quantity, 2)}}</text>
+        </view>
+      </block>
+      
+      <view class="divider mb-2"></view>
+      
+      <view class="summary-row justify-between mb-1">
+        <text>Subtotal:</text>
+        <text>${{toFixed(subtotal, 2)}}</text>
+      </view>
+      <view class="summary-row justify-between mb-1">
+        <text>Delivery Fee:</text>
+        <text>${{deliveryFee}}</text>
+      </view>
+      <view class="summary-row justify-between mb-1">
+        <text>Discount:</text>
+        <text>-${{discount}}</text>
+      </view>
+      <view class="divider mb-2"></view>
+      <view class="summary-row justify-between bold">
+        <text>Total:</text>
+        <text class="total-amount">${{toFixed(total, 2)}}</text>
+      </view>
+    </view>
+  </view>
+  
+  <!-- Place Order Button -->
+  <view class="p-3">
+    <button class="btn btn-primary btn-large" bindtap="placeOrder" disabled="{{!address}}">Place Order</button>
+  </view>
+</view>
