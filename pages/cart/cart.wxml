@@ -2,7 +2,7 @@
 <view class="container">
   <!-- Header -->
   <view class="header">
-    <text class="header-title">Shopping Cart</text>
+    <text class="header-title">{{cartTitle}}</text>
   </view>
   
   <!-- Cart Items -->
@@ -25,7 +25,7 @@
             </view>
             <view class="cart-item-total">
               <text>${{toFixed(item.price * item.quantity, 2)}}</text>
-              <button class="remove-btn" bindtap="removeFromCart" data-id="{{item.id}}">Remove</button>
+              <button class="remove-btn" bindtap="removeFromCart" data-id="{{item.id}}">{{removeBtnText}}</button>
             </view>
           </view>
         </view>
@@ -34,31 +34,32 @@
       <!-- Cart Summary -->
       <view class="card cart-summary p-3 mb-3">
         <view class="summary-row justify-between">
-          <text>Subtotal:</text>
+          <text>{{subTotalText}}:</text>
           <text>${{toFixed(subtotal, 2)}}</text>
         </view>
         <view class="summary-row justify-between">
-          <text>Delivery Fee:</text>
-          <text>${{deliveryFee}}</text>
+          <text>{{deliveryFeeText}}:</text>
+          <text wx:if="{{deliveryFee > 0}}">${{deliveryFee}}</text>
+          <text wx:else>{{freeShippingText}}</text>
         </view>
         <view class="divider"></view>
         <view class="summary-row justify-between bold">
-          <text>Total:</text>
+          <text>{{totalText}}:</text>
           <text class="total-amount">${{toFixed(total, 2)}}</text>
         </view>
         
         <!-- Free Delivery Message -->
         <view class="free-delivery-message mt-2" wx:if="{{deliveryFee === 0}}">
-          <text>🎉 Congratulations! You qualify for FREE delivery!</text>
+          <text>{{freeDeliveryMessage}}</text>
         </view>
         <view class="delivery-message mt-2" wx:else>
-          <text>Add ${{toFixed(freeDeliveryThreshold - subtotal, 2)}} more for FREE delivery</text>
+          <text>{{deliveryMessage}}</text>
         </view>
       </view>
       
       <!-- Checkout Button -->
       <view class="p-3">
-        <button class="btn btn-primary btn-large" bindtap="proceedToCheckout">Proceed to Checkout</button>
+        <button class="btn btn-primary btn-large" bindtap="proceedToCheckout">{{checkoutBtnText}}</button>
       </view>
     </block>
     
@@ -66,8 +67,8 @@
     <block wx:else>
       <view class="empty-cart text-center p-4">
         <image src="/images/empty-cart.png" class="empty-cart-icon"></image>
-        <text class="empty-cart-text">Your cart is empty</text>
-        <button class="btn btn-primary mt-3" bindtap="goToShop">Browse Flowers</button>
+        <text class="empty-cart-text">{{emptyCartText}}</text>
+        <button class="btn btn-primary mt-3" bindtap="goToShop">{{continueShoppingText}}</button>
       </view>
     </block>
   </view>

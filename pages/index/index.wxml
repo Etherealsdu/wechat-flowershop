@@ -2,7 +2,7 @@
 <view class="container">
   <!-- Header -->
   <view class="header">
-    <text class="header-title">Welcome to Flower Shop</text>
+    <text class="header-title">{{i18n.welcomeTitle}}</text>
   </view>
   
   <!-- Hero Banner -->
@@ -18,24 +18,36 @@
     </swiper-item>
   </swiper>
   
+  <!-- Language Switcher -->
+  <view class="language-switcher p-3">
+    <view class="flex justify-center space-x-4">
+      <view class="lang-btn {{i18nLocale === 'zh' ? 'active' : ''}}" bindtap="switchLanguage" data-lang="zh">
+        <text>中文</text>
+      </view>
+      <view class="lang-btn {{i18nLocale === 'en' ? 'active' : ''}}" bindtap="switchLanguage" data-lang="en">
+        <text>EN</text>
+      </view>
+    </view>
+  </view>
+  
   <!-- Quick Actions -->
   <view class="quick-actions p-3">
     <view class="flex justify-between mb-3">
       <view class="action-btn text-center" bindtap="goToShop">
         <image src="/images/roses-icon.png" class="action-icon"></image>
-        <text class="action-text">Roses</text>
+        <text class="action-text">{{i18n.roses}}</text>
       </view>
       <view class="action-btn text-center" bindtap="goToShop">
         <image src="/images/sunflowers-icon.png" class="action-icon"></image>
-        <text class="action-text">Sunflowers</text>
+        <text class="action-text">{{i18n.sunflowers}}</text>
       </view>
       <view class="action-btn text-center" bindtap="goToShop">
         <image src="/images/arrangements-icon.png" class="action-icon"></image>
-        <text class="action-text">Arrangements</text>
+        <text class="action-text">{{i18n.arrangements}}</text>
       </view>
       <view class="action-btn text-center" bindtap="goToShop">
         <image src="/images/plants-icon.png" class="action-icon"></image>
-        <text class="action-text">Plants</text>
+        <text class="action-text">{{i18n.plants}}</text>
       </view>
     </view>
   </view>
@@ -43,8 +55,8 @@
   <!-- Featured Flowers -->
   <view class="section p-3">
     <view class="section-header mb-3">
-      <text class="section-title">Featured Flowers</text>
-      <text class="section-more" bindtap="goToShop">See All ></text>
+      <text class="section-title">{{i18n.featuredFlowers}}</text>
+      <text class="section-more" bindtap="goToShop">{{i18n.seeAll}}</text>
     </view>
     <scroll-view scroll-x="{{true}}" class="horizontal-scroll">
       <view class="flex">
@@ -71,24 +83,24 @@
   <!-- Categories -->
   <view class="section p-3">
     <view class="section-header mb-3">
-      <text class="section-title">Categories</text>
+      <text class="section-title">{{i18n.categories}}</text>
     </view>
     <view class="grid grid-cols-2">
       <view class="category-card" bindtap="goToCategory" data-category="roses">
         <image src="/images/roses-category.jpg" class="category-image"></image>
-        <text class="category-name">Roses</text>
+        <text class="category-name">{{i18n.roses}}</text>
       </view>
       <view class="category-card" bindtap="goToCategory" data-category="sunflowers">
         <image src="/images/sunflowers-category.jpg" class="category-image"></image>
-        <text class="category-name">Sunflowers</text>
+        <text class="category-name">{{i18n.sunflowers}}</text>
       </view>
       <view class="category-card" bindtap="goToCategory" data-category="lilies">
         <image src="/images/lilies-category.jpg" class="category-image"></image>
-        <text class="category-name">Lilies</text>
+        <text class="category-name">{{i18n.lilies}}</text>
       </view>
       <view class="category-card" bindtap="goToCategory" data-category="orchids">
         <image src="/images/orchids-category.jpg" class="category-image"></image>
-        <text class="category-name">Orchids</text>
+        <text class="category-name">{{i18n.orchids}}</text>
       </view>
     </view>
   </view>
@@ -96,14 +108,14 @@
   <!-- Special Offers -->
   <view class="section p-3">
     <view class="section-header mb-3">
-      <text class="section-title">Special Offers</text>
+      <text class="section-title">{{i18n.specialOffers}}</text>
     </view>
     <view class="card offer-card">
       <view class="offer-content flex align-center">
         <image src="/images/discount-icon.png" class="offer-icon"></image>
         <view class="offer-text">
-          <text class="offer-title">Free Delivery on Orders Over $50</text>
-          <text class="offer-subtitle">Limited time offer</text>
+          <text class="offer-title">{{i18n.freeDelivery}}</text>
+          <text class="offer-subtitle">{{i18n.limitedTime}}</text>
         </view>
       </view>
     </view>
@@ -111,6 +123,6 @@
   
   <!-- Footer -->
   <view class="footer">
-    <text>© 2025 Flower Shop. All rights reserved.</text>
+    <text>{{i18n.copyright || '© 2025 Flower Shop. All rights reserved.'}}</text>
   </view>
 </view>

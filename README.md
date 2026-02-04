@@ -143,6 +143,64 @@ The UI uses flexible layouts and responsive units to ensure good experience on a
 4. Set up analytics for user behavior tracking
 5. Implement crash reporting for error monitoring
 
+## Internationalization (i18n) Support
+
+This mini program now includes comprehensive internationalization support for Chinese and English languages, with Chinese as the default language.
+
+### i18n Architecture
+
+```
+├── i18n/                    # Internationalization module
+│   ├── zh.json             # Chinese language pack
+│   ├── en.json             # English language pack
+│   └── index.js            # i18n manager module
+├── utils/
+│   └── i18n-util.js        # i18n utility functions
+```
+
+### Features
+
+- **Dual Language Support**: Full support for Chinese and English
+- **Dynamic Language Switching**: Users can switch languages at runtime
+- **Persistent Language Preference**: Selected language is saved in local storage
+- **Comprehensive Coverage**: All UI texts are internationalized
+- **Fallback Mechanism**: Falls back to Chinese if translation is missing
+
+### Implementation
+
+The i18n system is implemented as follows:
+
+1. **Language Files**: JSON files containing translations organized by sections
+2. **i18n Manager**: Handles language switching and translation lookups
+3. **Utility Functions**: Helper functions to easily access translations
+4. **Page Integration**: Each page loads appropriate translations on initialization
+
+### Usage
+
+To add internationalization to a new page:
+
+1. Import the i18n utility: `const i18nUtil = require('../../utils/i18n-util.js');`
+2. In `onLoad` or `onShow`, update i18n data:
+   ```javascript
+   updateI18nData: function() {
+     const i18nData = {
+       title: i18nUtil.t('common.title'),
+       buttonText: i18nUtil.t('common.buttonText')
+     };
+     
+     this.setData({
+       i18n: i18nData
+     });
+   }
+   ```
+3. Use the translated values in your WXML template
+
+### Adding New Translations
+
+1. Add new key-value pairs to both `i18n/zh.json` and `i18n/en.json`
+2. Use the key in your code with `i18nUtil.t('namespace.keyName')`
+3. The system will automatically select the appropriate translation based on user's language preference
+
 ## Future Enhancements
 
 - Payment integration
@@ -152,4 +210,3 @@ The UI uses flexible layouts and responsive units to ensure good experience on a
 - Social sharing features
 - Advanced search and filtering
 - Inventory management integration
-- Multi-language support

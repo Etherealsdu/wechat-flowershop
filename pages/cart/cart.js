@@ -1,4 +1,6 @@
 // pages/cart/cart.js
+import { t } from '../../utils/i18n-util.js';
+
 Page({
   data: {
     cartItems: [],
@@ -68,7 +70,7 @@ Page({
   proceedToCheckout: function() {
     if (this.data.cartItems.length === 0) {
       wx.showToast({
-        title: 'Your cart is empty',
+        title: t('cart.emptyCart'),
         icon: 'none'
       });
       return;

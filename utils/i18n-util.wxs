@@ -1,0 +1,82 @@
+// utils/i18n-util.wxs
+var i18n = {
+  // 简化版国际化对象，实际值将在运行时通过JS传递
+  translations: {
+    'common': {
+      'appName': 'Flower Shop',
+      'welcome': 'Welcome to Flower Shop',
+      'home': 'Home',
+      'shop': 'Shop',
+      'cart': 'Cart',
+      'orders': 'Orders',
+      'profile': 'Profile',
+      'search': 'Search',
+      'checkout': 'Checkout',
+      'seeAll': 'See All >',
+      'addToCart': 'Add to Cart',
+      'buyNow': 'Buy Now',
+      'price': 'Price',
+      'originalPrice': 'Original Price',
+      'quantity': 'Quantity',
+      'total': 'Total',
+      'confirm': 'Confirm',
+      'cancel': 'Cancel',
+      'back': 'Back',
+      'more': 'More',
+      'loading': 'Loading...',
+      'noData': 'No Data',
+      'refresh': 'Refresh',
+      'settings': 'Settings',
+      'language': 'Language',
+      'chinese': 'Chinese',
+      'english': 'English',
+      'remove': 'Remove'
+    },
+    'cart': {
+      'title': 'Cart',
+      'emptyCart': 'Your cart is empty',
+      'continueShopping': 'Continue Shopping',
+      'goToCheckout': 'Go to Checkout',
+      'subTotal': 'Subtotal',
+      'shipping': 'Shipping',
+      'freeShipping': 'Free Shipping',
+      'promoCode': 'Promo Code',
+      'apply': 'Apply',
+      'itemTotal': 'Item Total'
+    },
+    'messages': {
+      'congratulationsFreeDelivery': '🎉 Congratulations! You qualify for FREE delivery!',
+      'addMoreForFreeDelivery': 'Add ${{amount}} more for FREE delivery'
+    }
+  }
+};
+
+// 翻译函数
+function t(key, params) {
+  var keys = key.split('.');
+  var value = i18n.translations;
+  
+  for (var i = 0; i < keys.length; i++) {
+    if (value && value[keys[i]] !== undefined) {
+      value = value[keys[i]];
+    } else {
+      return key; // 返回原始键作为后备
+    }
+  }
+  
+  // 处理参数插值
+  if (params) {
+    var result = value;
+    for (var paramKey in params) {
+      var reg = new RegExp('{{' + paramKey + '}}', 'g');
+      result = result.replace(reg, params[paramKey]);
+    }
+    return result;
+  }
+  
+  return value;
+}
+
+module.exports = {
+  t: t
+};

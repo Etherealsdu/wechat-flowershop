@@ -1,4 +1,6 @@
 // pages/shop/shop.js
+const i18nUtil = require('../../utils/i18n-util.js');
+
 Page({
   data: {
     flowers: [],
@@ -6,11 +8,13 @@ Page({
     searchQuery: '',
     selectedCategory: '',
     sortIndex: 0,
-    sortOptions: ['Price: Low to High', 'Price: High to Low', 'Rating', 'Newest'],
-    cartItemCount: 0
+    sortOptions: [], // 将在 updateI18nData 中设置
+    cartItemCount: 0,
+    i18n: {} // 国际化文本
   },
 
   onLoad: function(options) {
+    this.updateI18nData();
     const app = getApp();
     this.setData({
       flowers: app.globalData.flowers,
@@ -26,7 +30,52 @@ Page({
   },
 
   onShow: function() {
+    this.updateI18nData();
     this.updateCartCount();
+  },
+  
+  // 更新国际化数据
+  updateI18nData: function() {
+    const i18nData = {
+      title: i18nUtil.t('shop.title'),
+      all: i18nUtil.t('shop.all'),
+      sortBy: i18nUtil.t('shop.sortBy'),
+      sortByPriceLow: i18nUtil.t('shop.sortByPriceLow'),
+      sortByPriceHigh: i18nUtil.t('shop.sortByPriceHigh'),
+      sortByRating: i18nUtil.t('shop.sortByRating'),
+      filter: i18nUtil.t('shop.filter'),
+      resetFilters: i18nUtil.t('shop.resetFilters'),
+      addToCart: i18nUtil.t('common.addToCart'),
+      buyNow: i18nUtil.t('common.buyNow'),
+      price: i18nUtil.t('common.price'),
+      originalPrice: i18nUtil.t('common.originalPrice'),
+      quantity: i18nUtil.t('common.quantity'),
+      total: i18nUtil.t('common.total'),
+      confirm: i18nUtil.t('common.confirm'),
+      cancel: i18nUtil.t('common.cancel'),
+      back: i18nUtil.t('common.back'),
+      more: i18nUtil.t('common.more'),
+      loading: i18nUtil.t('common.loading'),
+      noData: i18nUtil.t('common.noData'),
+      refresh: i18nUtil.t('common.refresh'),
+      settings: i18nUtil.t('common.settings'),
+      language: i18nUtil.t('common.language'),
+      chinese: i18nUtil.t('common.chinese'),
+      english: i18nUtil.t('common.english')
+    };
+    
+    // 更新排序选项
+    const sortOptions = [
+      i18nUtil.t('shop.sortByPriceLow'),
+      i18nUtil.t('shop.sortByPriceHigh'),
+      i18nUtil.t('shop.sortByRating'),
+      i18nData.newest || 'Newest' // 如果没有定义"最新"则使用默认值
+    ];
+    
+    this.setData({
+      i18n: i18nData,
+      sortOptions: sortOptions
+    });
   },
 
   onSearchInput: function(e) {
