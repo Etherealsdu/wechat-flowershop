@@ -2,7 +2,7 @@
 <view class="container">
   <!-- Header -->
   <view class="header">
-    <text class="header-title">My Orders</text>
+    <text class="header-title">{{pageTitle}}</text>
   </view>
   
   <!-- Order Tabs -->
@@ -12,21 +12,21 @@
       bindtap="switchTab" 
       data-tab="all"
     >
-      All Orders
+      {{allOrdersText}}
     </view>
     <view 
       class="tab-item text-center {{activeTab === 'pending' ? 'active' : ''}}" 
       bindtap="switchTab" 
       data-tab="pending"
     >
-      Pending
+      {{pendingText}}
     </view>
     <view 
       class="tab-item text-center {{activeTab === 'completed' ? 'active' : ''}}" 
       bindtap="switchTab" 
       data-tab="completed"
     >
-      Completed
+      {{completedText}}
     </view>
   </view>
   
@@ -37,7 +37,7 @@
         <view class="card order-card mb-3">
           <view class="p-3">
             <view class="order-header flex justify-between align-center mb-3">
-              <text class="order-id">Order #{{item.id.substring(0, 8)}}</text>
+              <text class="order-id">Order {{orderNumberPrefix}}{{item.id.substring(0, 8)}}</text>
               <view class="order-status {{item.status}}-status">
                 <text class="{{item.status}}-text">{{formatStatus(item.status)}}</text>
               </view>
@@ -49,11 +49,11 @@
                   <image src="{{item.image}}" class="order-item-image" mode="aspectFill"></image>
                   <view class="order-item-info ml-2">
                     <text class="order-item-name">{{item.name}}</text>
-                    <text class="order-item-quantity">Qty: {{item.quantity}}</text>
+                    <text class="order-item-quantity">{{quantityText}}: {{item.quantity}}</text>
                   </view>
                 </view>
                 <view class="text-muted text-center" wx:if="{{index === 2 && item.items.length > 3}}">
-                  ...and {{item.items.length - 3}} more items
+                  ...{{andMoreItemsText}}
                 </view>
               </block>
             </view>
@@ -61,8 +61,8 @@
             <view class="divider my-3"></view>
             
             <view class="order-footer flex justify-between align-center">
-              <text class="order-total">Total: ${{toFixed(item.total, 2)}}</text>
-              <button class="btn btn-secondary btn-small" bindtap="viewOrderDetails" data-order="{{item}}">View Details</button>
+              <text class="order-total">{{orderTotalText}}: ${{toFixed(item.total, 2)}}</text>
+              <button class="btn btn-secondary btn-small" bindtap="viewOrderDetails" data-order="{{item}}">{{viewDetailsText}}</button>
             </view>
           </view>
         </view>
@@ -72,8 +72,8 @@
     <!-- Empty State -->
     <view class="empty-orders text-center p-4" wx:if="{{filteredOrders.length === 0}}">
       <image src="/images/empty-orders.png" class="empty-orders-icon"></image>
-      <text class="empty-orders-text">No orders yet</text>
-      <button class="btn btn-primary mt-3" bindtap="goToShop">Start Shopping</button>
+      <text class="empty-orders-text">{{noOrdersText}}</text>
+      <button class="btn btn-primary mt-3" bindtap="goToShop">{{startShoppingText}}</button>
     </view>
   </view>
 </view>

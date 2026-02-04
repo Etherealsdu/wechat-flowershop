@@ -7,15 +7,71 @@ Page({
     subtotal: 0,
     deliveryFee: 5.99,
     freeDeliveryThreshold: 50,
-    total: 0
+    total: 0,
+    // 国际化文本
+    cartTitle: '',
+    removeBtnText: '',
+    subTotalText: '',
+    deliveryFeeText: '',
+    freeShippingText: '',
+    totalText: '',
+    freeDeliveryMessage: '',
+    deliveryMessage: '',
+    checkoutBtnText: '',
+    emptyCartText: '',
+    continueShoppingText: ''
   },
 
   onLoad: function() {
+    this.initI18n(); // 初始化国际化文本
     this.loadCart();
   },
 
   onShow: function() {
     this.loadCart();
+  },
+
+  // 初始化国际化文本
+  initI18n: function() {
+    this.setData({
+      cartTitle: t('cart.title'),
+      removeBtnText: t('common.remove'),
+      subTotalText: t('cart.subTotal'),
+      deliveryFeeText: t('cart.shipping'),
+      freeShippingText: t('cart.freeShipping'),
+      totalText: t('common.total'),
+      freeDeliveryMessage: t('messages.congratulationsFreeDelivery'),
+      checkoutBtnText: t('cart.goToCheckout'),
+      emptyCartText: t('cart.emptyCart'),
+      continueShoppingText: t('cart.continueShopping')
+    });
+  },
+
+  // 更新国际化文本
+  updateI18n: function() {
+    this.setData({
+      cartTitle: t('cart.title'),
+      removeBtnText: t('common.remove'),
+      subTotalText: t('cart.subTotal'),
+      deliveryFeeText: t('cart.shipping'),
+      freeShippingText: t('cart.freeShipping'),
+      totalText: t('common.total'),
+      freeDeliveryMessage: t('messages.congratulationsFreeDelivery'),
+      checkoutBtnText: t('cart.goToCheckout'),
+      emptyCartText: t('cart.emptyCart'),
+      continueShoppingText: t('cart.continueShopping')
+    });
+  },
+
+  // 更新配送消息文本
+  updateDeliveryMessage: function() {
+    const deliveryMessage = this.data.deliveryFee === 0 
+      ? '' 
+      : t('messages.addMoreForFreeDelivery', { amount: this.data.toFixed(this.data.freeDeliveryThreshold - this.data.subtotal, 2) });
+    
+    this.setData({
+      deliveryMessage: deliveryMessage
+    });
   },
 
   loadCart: function() {
@@ -39,6 +95,8 @@ Page({
       deliveryFee: deliveryFee,
       total: total
     });
+    
+    this.updateDeliveryMessage();
   },
 
   increaseQuantity: function(e) {
@@ -87,7 +145,10 @@ Page({
     });
   },
 
-  toFixed: function(num, digits) {
-    return parseFloat(num.toFixed(digits));
+  // 全局监听语言变化
+  onLocaleChange: function() {
+    this.updateI18n();
+    this.updateDeliveryMessage();
   }
+})
 })
