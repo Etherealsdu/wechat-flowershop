@@ -127,8 +127,16 @@ Page({
 
   viewOrderDetails: function(e) {
     const order = e.currentTarget.dataset.order;
-    wx.navigateTo({
-      url: `/pages/order-detail/order-detail?id=${order.id}`
+    // 由于订单详情页面尚未实现，显示订单信息的提示
+    const statusText = this.formatStatus(order.status);
+    const itemCount = order.items ? order.items.length : 0;
+    const itemsText = itemCount > 0 ? `${itemCount} ${t('common.quantity')}` : '';
+
+    wx.showModal({
+      title: `${t('orders.orderNumber')}: ${order.id}`,
+      content: `${t('orders.orderStatus')}: ${statusText}\n${t('orders.orderTotal')}: $${this.toFixed(order.total, 2)}\n${itemsText}`,
+      showCancel: false,
+      confirmText: t('common.confirm')
     });
   },
 

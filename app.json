@@ -6,8 +6,7 @@
     "pages/orders/orders",
     "pages/profile/profile",
     "pages/checkout/checkout",
-    "pages/flower-detail/flower-detail",
-    "pages/search/search"
+    "pages/flower-detail/flower-detail"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -54,6 +53,6 @@
     "uploadFile": 10000,
     "downloadFile": 10000
   },
-  "debug": true,
+  "debug": false,
   "style": "v2"
 }

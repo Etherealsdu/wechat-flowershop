@@ -26,7 +26,13 @@
     "settings": "Settings",
     "language": "Language",
     "chinese": "Chinese",
-    "english": "English"
+    "english": "English",
+    "remove": "Remove",
+    "edit": "Edit",
+    "save": "Save",
+    "yes": "Yes",
+    "no": "No",
+    "processing": "Processing..."
   },
   "index": {
     "welcomeTitle": "Welcome to Flower Shop",
@@ -77,7 +83,10 @@
     "orderDate": "Order Date",
     "orderStatus": "Order Status",
     "orderTotal": "Order Total",
-    "viewDetails": "View Details"
+    "viewDetails": "View Details",
+    "all": "All",
+    "startShopping": "Start Shopping",
+    "andMoreItems": "and {{count}} more items"
   },
   "profile": {
     "title": "Profile",
@@ -106,6 +115,8 @@
     "title": "Checkout",
     "deliveryAddress": "Delivery Address",
     "addAddress": "Add Address",
+    "editAddress": "Edit Address",
+    "noAddress": "No address added yet",
     "paymentMethod": "Payment Method",
     "cashOnDelivery": "Cash on Delivery",
     "onlinePayment": "Online Payment",
@@ -117,7 +128,19 @@
     "recipientName": "Recipient Name",
     "phone": "Phone Number",
     "address": "Address",
-    "postalCode": "Postal Code"
+    "postalCode": "Postal Code",
+    "deliveryTime": "Delivery Time",
+    "standardDelivery": "Standard Delivery",
+    "expressDelivery": "Express Delivery",
+    "scheduledDelivery": "Scheduled Delivery",
+    "within24Hours": "Within 24 hours",
+    "within2to4Hours": "Within 2-4 hours",
+    "chooseTimeSlot": "Choose time slot",
+    "specialInstructions": "Special Instructions",
+    "specialInstructionsPlaceholder": "Any special delivery instructions?",
+    "subtotal": "Subtotal",
+    "deliveryFee": "Delivery Fee",
+    "freeDelivery": "Free Delivery"
   },
   "search": {
     "title": "Search",
@@ -137,6 +160,14 @@
     "success": "Success",
     "error": "Error",
     "warning": "Warning",
-    "info": "Info"
+    "info": "Info",
+    "congratulationsFreeDelivery": "Congratulations! You get free delivery",
+    "addMoreForFreeDelivery": "Add ${{amount}} more for free delivery",
+    "exceedsStock": "Insufficient stock",
+    "confirmLogout": "Confirm Logout",
+    "confirmLogoutMessage": "Are you sure you want to logout?",
+    "logoutSuccess": "Logged out successfully",
+    "addAddressRequired": "Please add a delivery address",
+    "featureNotAvailable": "Feature not available yet"
   }
 }

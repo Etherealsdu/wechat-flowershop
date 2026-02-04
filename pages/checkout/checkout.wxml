@@ -3,17 +3,17 @@
   <!-- Header -->
   <view class="header">
     <text class="header-back" bindtap="goBack">←</text>
-    <text class="header-title">Checkout</text>
+    <text class="header-title">{{i18n.title}}</text>
   </view>
-  
+
   <!-- Delivery Address -->
   <view class="card mb-3">
     <view class="p-3">
       <view class="section-header mb-3">
-        <text class="section-title">Delivery Address</text>
-        <text class="section-more" bindtap="editAddress">Edit</text>
+        <text class="section-title">{{i18n.deliveryAddress}}</text>
+        <text class="section-more" bindtap="editAddress" wx:if="{{address}}">{{i18n.editAddress}}</text>
       </view>
-      
+
       <view wx:if="{{address}}">
         <text class="address-line">{{address.name}}</text>
         <text class="address-line">{{address.phone}}</text>
@@ -22,19 +22,19 @@
         <text class="address-line">{{address.country}}</text>
       </view>
       <view wx:else>
-        <text>No address added yet</text>
-        <button class="btn btn-primary mt-2" bindtap="addAddress">Add Address</button>
+        <text>{{i18n.noAddress}}</text>
+        <button class="btn btn-primary mt-2" bindtap="addAddress">{{i18n.addAddress}}</button>
       </view>
     </view>
   </view>
-  
+
   <!-- Delivery Time -->
   <view class="card mb-3">
     <view class="p-3">
       <view class="section-header mb-3">
-        <text class="section-title">Delivery Time</text>
+        <text class="section-title">{{i18n.deliveryTime}}</text>
       </view>
-      
+
       <radio-group bindchange="onDeliveryTimeChange">
         <label class="delivery-option flex align-center" wx:for="{{deliveryOptions}}" wx:key="value">
           <radio value="{{item.value}}" checked="{{item.value === selectedDeliveryTime}}"/>
@@ -46,61 +46,62 @@
       </radio-group>
     </view>
   </view>
-  
+
   <!-- Special Instructions -->
   <view class="card mb-3">
     <view class="p-3">
       <view class="section-header mb-3">
-        <text class="section-title">Special Instructions</text>
+        <text class="section-title">{{i18n.specialInstructions}}</text>
       </view>
-      <textarea 
-        class="instructions-input" 
-        placeholder="Any special delivery instructions?" 
+      <textarea
+        class="instructions-input"
+        placeholder="{{i18n.specialInstructionsPlaceholder}}"
         value="{{specialInstructions}}"
         bindinput="onInstructionsInput"
         maxlength="200"
       ></textarea>
     </view>
   </view>
-  
+
   <!-- Order Summary -->
   <view class="card mb-3">
     <view class="p-3">
       <view class="section-header mb-3">
-        <text class="section-title">Order Summary</text>
+        <text class="section-title">{{i18n.orderSummary}}</text>
       </view>
-      
+
       <block wx:for="{{cartItems}}" wx:key="id">
         <view class="summary-item flex justify-between mb-2">
           <text>{{item.name}} x {{item.quantity}}</text>
           <text>${{toFixed(item.price * item.quantity, 2)}}</text>
         </view>
       </block>
-      
+
       <view class="divider mb-2"></view>
-      
+
       <view class="summary-row justify-between mb-1">
-        <text>Subtotal:</text>
+        <text>{{i18n.subtotal}}:</text>
         <text>${{toFixed(subtotal, 2)}}</text>
       </view>
       <view class="summary-row justify-between mb-1">
-        <text>Delivery Fee:</text>
-        <text>${{deliveryFee}}</text>
+        <text>{{i18n.deliveryFee}}:</text>
+        <text wx:if="{{deliveryFee > 0}}">${{deliveryFee}}</text>
+        <text wx:else>{{i18n.freeDelivery}}</text>
       </view>
-      <view class="summary-row justify-between mb-1">
-        <text>Discount:</text>
+      <view class="summary-row justify-between mb-1" wx:if="{{discount > 0}}">
+        <text>{{i18n.discount}}:</text>
         <text>-${{discount}}</text>
       </view>
       <view class="divider mb-2"></view>
       <view class="summary-row justify-between bold">
-        <text>Total:</text>
+        <text>{{i18n.total}}:</text>
         <text class="total-amount">${{toFixed(total, 2)}}</text>
       </view>
     </view>
   </view>
-  
+
   <!-- Place Order Button -->
   <view class="p-3">
-    <button class="btn btn-primary btn-large" bindtap="placeOrder" disabled="{{!address}}">Place Order</button>
+    <button class="btn btn-primary btn-large" bindtap="placeOrder" disabled="{{!address || cartItems.length === 0}}">{{i18n.placeOrder}}</button>
   </view>
 </view>

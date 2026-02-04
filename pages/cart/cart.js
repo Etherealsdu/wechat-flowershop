@@ -65,10 +65,11 @@ Page({
 
   // 更新配送消息文本
   updateDeliveryMessage: function() {
-    const deliveryMessage = this.data.deliveryFee === 0 
-      ? '' 
-      : t('messages.addMoreForFreeDelivery', { amount: this.data.toFixed(this.data.freeDeliveryThreshold - this.data.subtotal, 2) });
-    
+    const amountNeeded = this.data.freeDeliveryThreshold - this.data.subtotal;
+    const deliveryMessage = this.data.deliveryFee === 0
+      ? ''
+      : t('messages.addMoreForFreeDelivery', { amount: amountNeeded.toFixed(2) });
+
     this.setData({
       deliveryMessage: deliveryMessage
     });
@@ -149,6 +150,10 @@ Page({
   onLocaleChange: function() {
     this.updateI18n();
     this.updateDeliveryMessage();
+  },
+
+  // 辅助函数：格式化数字
+  toFixed: function(num, digits) {
+    return parseFloat(num.toFixed(digits));
   }
-})
 })

@@ -7,7 +7,7 @@
   "miniprogramRoot": "./",
   "compileType": "miniprogram",
   "libVersion": "2.19.4",
-  "appid": "wxe123456789abcdef", // Replace with actual appid
+  "appid": "wxe123456789abcdef",
   "setting": {
     "urlCheck": true,
     "es6": true,

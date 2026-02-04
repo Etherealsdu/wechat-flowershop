@@ -13,7 +13,11 @@ App({
   onLaunch: function () {
     // Application launch logic
     console.log('Flower Shop Mini Program Launched');
-    
+
+    // Load persisted cart and orders from storage
+    this.loadCart();
+    this.loadOrders();
+
     // Initialize flower data
     this.initFlowerData();
   },
@@ -184,18 +188,37 @@ App({
   
   // Cart management methods
   addToCart: function(flower, quantity = 1) {
+    // Validate quantity
+    if (quantity <= 0) {
+      return { success: false, message: 'invalidQuantity' };
+    }
+
+    // Check stock availability
+    const currentFlower = this.globalData.flowers.find(f => f.id === flower.id);
+    if (!currentFlower || currentFlower.stock <= 0) {
+      return { success: false, message: 'outOfStock' };
+    }
+
     const existingItem = this.globalData.cart.find(item => item.id === flower.id);
-    
+    const currentQuantity = existingItem ? existingItem.quantity : 0;
+    const newTotalQuantity = currentQuantity + quantity;
+
+    // Check if requested quantity exceeds stock
+    if (newTotalQuantity > currentFlower.stock) {
+      return { success: false, message: 'exceedsStock', availableStock: currentFlower.stock - currentQuantity };
+    }
+
     if (existingItem) {
-      existingItem.quantity += quantity;
+      existingItem.quantity = newTotalQuantity;
     } else {
       this.globalData.cart.push({
         ...flower,
         quantity: quantity
       });
     }
-    
+
     this.saveCart();
+    return { success: true };
   },
   
   removeFromCart: function(flowerId) {
@@ -226,6 +249,11 @@ App({
   loadCart: function() {
     const savedCart = wx.getStorageSync('cart') || [];
     this.globalData.cart = savedCart;
+  },
+
+  loadOrders: function() {
+    const savedOrders = wx.getStorageSync('orders') || [];
+    this.globalData.orders = savedOrders;
   },
   
   // Order management methods
